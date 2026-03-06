@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { getWorkoutsByUserIdAndDate } from "../../../data/workouts";
 import { formatDate } from "@/lib/format-date";
 import { DatePicker } from "./date-picker";
@@ -35,14 +36,16 @@ export default async function DashboardPage({ searchParams }: Props) {
         ) : (
           <ul className="space-y-2">
             {workouts.map((workout) => (
-              <li
-                key={workout.id}
-                className="border rounded-lg px-4 py-3 flex items-center justify-between"
-              >
-                <span className="font-medium">{workout.name}</span>
-                <span className="text-sm text-muted-foreground">
-                  {formatDate(workout.startedAt)}
-                </span>
+              <li key={workout.id}>
+                <Link
+                  href={`/dashboard/workout/${workout.id}`}
+                  className="border rounded-lg px-4 py-3 flex items-center justify-between hover:bg-muted transition-colors"
+                >
+                  <span className="font-medium">{workout.name}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {formatDate(workout.startedAt)}
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
