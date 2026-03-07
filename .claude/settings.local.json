@@ -8,5 +8,9 @@
       "Bash(cd E:/ProOne/liftingdiaryOJH/liftingdiaryojh && npm install date-fns 2>&1)",
       "Bash(cd E:/ProOne/liftingdiaryOJH/liftingdiaryojh && npx shadcn@latest add calendar popover button 2>&1)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "neon"
+  ],
+  "enableAllProjectMcpServers": true
 }
