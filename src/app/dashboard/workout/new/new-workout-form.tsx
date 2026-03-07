@@ -5,22 +5,16 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { updateWorkoutAction } from "./actions";
+import { createWorkoutAction } from "./actions";
 
-interface Workout {
-  id: number;
-  name: string;
-  startedAt: Date;
-}
-
-export function EditWorkoutForm({ workout }: { workout: Workout }) {
+export function NewWorkoutForm() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
-  const [name, setName] = useState(workout.name);
+  const [name, setName] = useState("");
   const [startedAt, setStartedAt] = useState(
-    workout.startedAt.toISOString().slice(0, 16)
+    () => new Date().toISOString().slice(0, 16)
   );
 
   function handleSubmit(e: React.FormEvent) {
@@ -28,7 +22,7 @@ export function EditWorkoutForm({ workout }: { workout: Workout }) {
     setError(null);
 
     startTransition(async () => {
-      const result = await updateWorkoutAction(workout.id, {
+      const result = await createWorkoutAction({
         name,
         startedAt: new Date(startedAt),
       });
@@ -58,6 +52,7 @@ export function EditWorkoutForm({ workout }: { workout: Workout }) {
           onChange={(e) => setName(e.target.value)}
           required
           maxLength={100}
+          placeholder="e.g. Push Day"
         />
       </div>
 
@@ -76,7 +71,7 @@ export function EditWorkoutForm({ workout }: { workout: Workout }) {
 
       <div className="flex gap-2">
         <Button type="submit" disabled={isPending}>
-          {isPending ? "Saving…" : "Save Changes"}
+          {isPending ? "Creating…" : "Create Workout"}
         </Button>
         <Button
           type="button"
