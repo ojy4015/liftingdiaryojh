@@ -24,6 +24,13 @@ export default async function DashboardPage({ searchParams }: Props) {
 
       <DatePicker selected={date} />
 
+      <a
+        href="/dashboard/workout/new"
+        className="inline-block px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90"
+      >
+        Log New Workout
+      </a>
+
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">
           Workouts for {formatDate(date)}
@@ -36,16 +43,14 @@ export default async function DashboardPage({ searchParams }: Props) {
         ) : (
           <ul className="space-y-2">
             {workouts.map((workout) => (
-              <li key={workout.id}>
-                <Link
-                  href={`/dashboard/workout/${workout.id}`}
-                  className="border rounded-lg px-4 py-3 flex items-center justify-between hover:bg-muted transition-colors"
-                >
-                  <span className="font-medium">{workout.name}</span>
-                  <span className="text-sm text-muted-foreground">
-                    {formatDate(workout.startedAt)}
-                  </span>
-                </Link>
+              <li
+                key={workout.id}
+                className="border rounded-lg px-4 py-3 flex items-center justify-between"
+              >
+                <span className="font-medium">{workout.name}</span>
+                <span className="text-sm text-muted-foreground">
+                  {formatDate(workout.startedAt)}
+                </span>
               </li>
             ))}
           </ul>
